@@ -302,7 +302,10 @@ man kwmc
         Get state of the prefix-key
             kwmc query prefix
 
-        Get tilling mode to use for new spaces
+        Get tiling mode to use for new spaces
+            kwmc query space tiling-mode
+
+        Get workspace_id of current space
             kwmc query space
 
         Get active cycle-focus mode

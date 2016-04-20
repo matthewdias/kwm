@@ -427,12 +427,21 @@ void KwmQueryCommand(std::vector<std::string> &Tokens, int ClientSockFD)
     else if(Tokens[1] == "space")
     {
         std::string Output;
-        if(KWMMode.Space == SpaceModeBSP)
-            Output = "bsp";
-        else if(KWMMode.Space == SpaceModeMonocle)
-            Output = "monocle";
-        else
-            Output = "float";
+        if(Tokens[2] == "tiling-mode")
+        {
+            if(KWMMode.Space == SpaceModeBSP)
+                Output = "bsp";
+            else if(KWMMode.Space == SpaceModeMonocle)
+                Output = "monocle";
+            else
+                Output = "float";
+        }
+        else if(DoesSpaceExistInMapOfScreen(KWMScreen.Current))
+        {
+            int SpaceID = GetActiveSpaceOfDisplay(KWMScreen.Current);
+            int SpaceNumber = GetSpaceNumberFromCGSpaceID(KWMScreen.Current, SpaceID);
+            Output = std::to_string(SpaceNumber);
+        }
 
         KwmWriteToSocket(ClientSockFD, Output);
     }
